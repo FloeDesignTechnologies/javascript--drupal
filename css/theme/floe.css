@@ -7,6 +7,42 @@
  */
 @import url(https://fonts.googleapis.com/css?family=News+Cycle:400,700);
 @import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic);
+@font-face {
+  font-family: "Avenir";
+  font-style: normal;
+  font-weight: normal;
+  src: url("../../fonts/AvenirNextLTPro-Regular.otf") format("opentype"), url("../../fonts/AvenirNextLTPro-Regular.woff") format("woff"); }
+
+@font-face {
+  font-family: "Avenir";
+  font-style: normal;
+  font-weight: bold;
+  src: url("../../fonts/AvenirNextLTPro-Bold.otf") format("opentype"), url("../../fonts/AvenirNextLTPro-Bold.woff") format("woff"); }
+
+body {
+  border: 1em solid #00aee7;
+  box-sizing: border-box; }
+
+.reveal .top-right-logo {
+  width: 5%;
+  position: absolute;
+  right: 16px;
+  top: 16px; }
+
+h2::after {
+  border-bottom: 15px solid #00aee7;
+  content: "";
+  display: block;
+  margin-bottom: 0.6em;
+  padding-bottom: 0.2em;
+  width: 300px; }
+
+.reveal .slides h2 {
+  text-align: left; }
+
+.reveal small {
+  vertical-align: middle; }
+
 /*********************************************
  * GLOBAL STYLES
  *********************************************/
@@ -15,7 +51,7 @@ body {
   background-color: #fff; }
 
 .reveal {
-  font-family: "Lato", sans-serif;
+  font-family: Avenir, Helvetica, Roboto, Arial, sans-serif;
   font-size: 36px;
   font-weight: 200;
   letter-spacing: -0.02em;
@@ -37,9 +73,9 @@ body {
 .reveal h6 {
   margin: 0 0 20px 0;
   color: #000;
-  font-family: "News Cycle", Impact, sans-serif;
+  font-family: Avenir, Helvetica, Roboto, Arial, sans-serif;
   line-height: 0.9em;
-  letter-spacing: 0.02em;
+  letter-spacing: 0;
   text-transform: none;
   text-shadow: none; }
 
@@ -50,7 +86,7 @@ body {
  * LINKS
  *********************************************/
 .reveal a:not(.image) {
-  color: #00008B;
+  color: #00aee7;
   text-decoration: none;
   -webkit-transition: color 0.15s ease;
   -moz-transition: color 0.15s ease;
@@ -59,13 +95,13 @@ body {
   transition: color 0.15s ease; }
 
 .reveal a:not(.image):hover {
-  color: #0000f1;
+  color: #4ed3ff;
   text-shadow: none;
   border: none; }
 
 .reveal .roll span:after {
   color: #fff;
-  background: #00003f; }
+  background: #00749b; }
 
 /*********************************************
  * IMAGES
@@ -83,7 +119,7 @@ body {
 
 .reveal a:hover img {
   background: rgba(255, 255, 255, 0.2);
-  border-color: #00008B;
+  border-color: #00aee7;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.55); }
 
 /*********************************************
@@ -91,31 +127,31 @@ body {
  *********************************************/
 .reveal .controls div.navigate-left,
 .reveal .controls div.navigate-left.enabled {
-  border-right-color: #00008B; }
+  border-right-color: #00aee7; }
 
 .reveal .controls div.navigate-right,
 .reveal .controls div.navigate-right.enabled {
-  border-left-color: #00008B; }
+  border-left-color: #00aee7; }
 
 .reveal .controls div.navigate-up,
 .reveal .controls div.navigate-up.enabled {
-  border-bottom-color: #00008B; }
+  border-bottom-color: #00aee7; }
 
 .reveal .controls div.navigate-down,
 .reveal .controls div.navigate-down.enabled {
-  border-top-color: #00008B; }
+  border-top-color: #00aee7; }
 
 .reveal .controls div.navigate-left.enabled:hover {
-  border-right-color: #0000f1; }
+  border-right-color: #4ed3ff; }
 
 .reveal .controls div.navigate-right.enabled:hover {
-  border-left-color: #0000f1; }
+  border-left-color: #4ed3ff; }
 
 .reveal .controls div.navigate-up.enabled:hover {
-  border-bottom-color: #0000f1; }
+  border-bottom-color: #4ed3ff; }
 
 .reveal .controls div.navigate-down.enabled:hover {
-  border-top-color: #0000f1; }
+  border-top-color: #4ed3ff; }
 
 /*********************************************
  * PROGRESS BAR
@@ -124,7 +160,7 @@ body {
   background: rgba(0, 0, 0, 0.2); }
 
 .reveal .progress span {
-  background: #00008B;
+  background: #00aee7;
   -webkit-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
   -moz-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
   -ms-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);

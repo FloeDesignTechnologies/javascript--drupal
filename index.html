@@ -6,6 +6,9 @@
 
         <title>JavaScript ♥ Drupal</title>
 
+        <head profile="http://www.w3.org/2005/10/profile">
+        <link rel="icon" type="image/png" href="./images/floe.png"/>
+
         <meta name="description" content="JavaScript in the context of a Drupal site">
         <meta name="author" content="Pierre Buyle">
 
@@ -34,12 +37,19 @@
 
         <div class="reveal">
 
+            <a href="https://www.floedesign.ca" class="top-right-logo">
+              <img src="./images/floe.png"/>
+            </a>
+
             <!-- Any section element inside of this container is displayed as a slide -->
             <div class="slides">
                 <section>
                     <h1>JavaScript<br/><large>♥</large><br/>Drupal</h1>
                     <p>
                         <small>by <a href="http://about.me/pbuyle">Pierre Buyle</a> </small>
+                    </p>
+                    <p>
+                      <small><a href="https://floedesign.ca">Floe design + technologies</a> </small>
                     </p>
                 </section>
                 <section>
@@ -68,7 +78,9 @@
                         <h2>drupal_add_js()</h2>
                         <p>
                             Add JavaScript to the currently rendered page.
-                            <pre><code class="php" data-trim>drupal_add_js('path/to/awesomeness.js', 'file')</code></pre>
+                            <pre><code class="php" data-trim>drupal_add_js($data = NULL, $options = NULL)</code></pre>
+
+                            <pre class="fragment"><code class="php" data-trim>drupal_add_js('path/to/awesomeness.js', 'file')</code></pre>
                             <pre class="fragment"><code class="php" data-trim>drupal_add_js('alert("Awesome!");', 'inline');</code></pre>
                             <pre class="fragment"><code class="php" data-trim>drupal_add_js(array('myAwesomeModule' => array(
     'foo' => 'bar',
@@ -83,8 +95,8 @@
                             <pre><code class="php" data-trim>
 drupal_add_js('path/to/awesomeness.js', array(
   'type' => 'file',</code></pre>
-                            <pre class="fragment"><code class="php">  'scope' => 'footer',</code></pre>
-                            <pre class="fragment"><code class="php">  'group' => 'JSTHEME',
+                            <pre class="fragment"><code class="php">  'scope' => 'footer', //or 'header'</code></pre>
+                            <pre class="fragment"><code class="php">  'group' => JS_THEME, //or JS_LIBRARY, or JS_MODULE
   'weigth' => '-10',</code></pre>
                             <pre class="fragment"><code class="php">  'preprocess' => TRUE,
   'every_page' => TRUE,</code></pre>
@@ -116,21 +128,38 @@ drupal_add_js('path/to/awesomeness.js', array(
                         <p>
                             Things to known and use when writing JavaScript for Drupal
                             <ul class="fragment">
+                                <li>Drupal.settings</li>
                                 <li>jQuery.noConflict</li>
                                 <li>Drupal.behaviors</li>
                                 <li>jQuery.once</li>
-                                <li>Drupal.settings</li>
                                 <li>Drupal.theme</li>
                                 <li>Drupal.t</li>
                             </ul>
                          </p>
+                    </section>
+                    <section id="drupal-settings">
+                      <h2>Drupal.settings</h2>
+                      <p>
+                        Passing values from PHP to Javascript
+                      <div class="fragment"><pre><code class="php" data-trim>
+drupal_add_js(
+  array('myAwesomeModule' => array(
+    'foo' => 'bar',
+    'bar' => 'foo',
+  )
+), 'setting');</code></pre></div>
+                      <div class="fragment"><pre><code class="javascript" data-trim>
+Drupal.settings.myAwesomeModule.foo;
+Drupal.settings.myAwesomeModule.bar;
+                      </code></pre></div>
+                      </p>
                     </section>
                     <section id="jquery-no-conflict">
                         <h2>jQuery.noConflict</h2>
                         <p>
                             <ul>
                                 <li><code>$</code> <strong>is not</strong> the jQuery object.</li>
-                                <li class="fragment">Code should be wrapped in an <a href="http://stage.learn.jquery.com/javascript-101/functions/#immediately-invoked-function-expression">Immediately Invoked Function Expression</a>.
+                                <li class="fragment">Code should be wrapped in an <a href="https://en.wikipedia.org/wiki/Immediately-invoked_function_expression">Immediately Invoked Function Expression</a>.
                                 <pre><code class="javascript" data-trim>
 (function($) {
   // Here $ is the jQuery object
@@ -155,12 +184,27 @@ Drupal.behaviors.doSomething = {
     // do something here too</code></pre></span>
                             <pre><code class="php">  }
 }</code></pre>
-                            <span class="fragment">Attach and detach behavior altering the DOM
+                            <span class="fragment">Attach and detach behavior when altering the DOM
                             <pre><code class="php" data-trim>
 Drupal.attachBehaviors(context, [settings])
 Drupal.detachBehaviors(context, [settings], [trigger])</code></pre></span>
                         </p>
                     </section>
+                   <section id="drupal-behaviors-2">
+                      <h2>Drupal.behaviors</h2>
+                      <pre><code class="javascript" data-trim>
+Drupal.behaviors.doSomething = {
+  attach: function(context, settings) {
+
+                      </code></pre>
+                       <pre class="fragment"><code class="javascript">    $(settings.myAwesomeModule.selector, context)
+      .doSomething(settings.myAwesomeModule.options);</code></pre>
+                       <pre><code class="javascript" >  }
+}</code></pre>
+                   </section>
+
+
+
                     <section id="jquery-once">
                         <h2>jQuery.once</h2>
                         <p>
@@ -171,28 +215,6 @@ Drupal.detachBehaviors(context, [settings], [trigger])</code></pre></span>
                             <pre class="fragment"><code class="javascript" data-trim>
 $('div.something', context).once('do-something');
                             </code></pre>
-                        </p>
-                    </section>
-                    <section id="drupal-settings">
-                        <h2>Drupal.settings</h2>
-                        <p>
-                          Passing values from PHP to Javascript
-                            <div class="fragment"><pre><code class="php" data-trim>drupal_add_js(
-  array('myAwesomeModule' => array(
-    'foo' => 'bar',
-    'bar' => 'foo',
-  )
-), 'setting');</code></pre></div>
-                            <div class="fragment"><pre><code class="javascript" data-trim>
-
-Drupal.settings.myAwesomeModule.foo;
-Drupal.settings.myAwesomeModule.bar;
-Drupal.behaviors.doSomething = {
-  attach: function(context, settings) {
-    settings.myAwesomeModule.foo
-  }
-}
-                                </code></pre></div>
                         </p>
                     </section>
                     <section id="writing-javascript-summary">
@@ -266,7 +288,7 @@ awesome_library() {
 </code></pre><span class="fragment">and/or <strong>CSS files</strong><pre><code class="php">      'css' => array('full/path/to/awesome.css' => array()),
 </code></pre></span><span class="fragment">optionally using <strong>settings</strong><pre><code class="php">      'js' => array(array('type' => 'setting', 'data' => $settings)),
 </code></pre></span><span class="fragment">and optionally <strong>requiring</strong> another library<pre><code class="php">      'dependencies' => array(
-        array($module, $library),
+        array('system', 'ui'),
       )
 </code></pre></span><pre><code class="php">    ),
   )
@@ -283,16 +305,22 @@ awesome_library() {
                     <section id="core-libraries">
                         <h2>Libraries bundled with Drupal core</h2>
                         <ul>
-                            <li><a href="http://api.drupal.org/api/drupal/includes--ajax.inc/group/ajax/7">Drupal AJAX</a></li>
-                            <li><a href="http://jquery.com">jQuery</a></li>
-                            <li><a href="http://plugins.jquery.com/once">jQuery Once</a></li>
-                            <li><a href="http://malsup.com/jquery/form/">jQuery Forms</a></li>
-                            <li><a href="http://benalman.com/projects/jquery-bbq-plugin/">jQuery BBQ</a></li>
-                            <li><a href="http://plugins.jquery.com/cookie">jQuery Cookie</a></li>
-                            <li><a href="http://jqueryui.com">jQuery UI</a></li>
-                            <li><a href="http://code.google.com/p/farbtastic/">Farbtastic</a></li>
+                            <li><a href="http://api.drupal.org/api/drupal/includes--ajax.inc/group/ajax/7">Drupal AJAX</a> <small>('system', 'drupal.ajax')</small></li>
+                            <li><a href="http://jquery.com">jQuery</a> <small>('system', 'jquery')</small></li>
+                            <li><a href="http://plugins.jquery.com/once">jQuery Once</a> <small>('system', 'jquery.onca')</small></li>
+                            <li><a href="http://malsup.com/jquery/form/">jQuery Forms</a> <small>('system', 'jquery.form')</small></li>
+                            <li><a href="http://benalman.com/projects/jquery-bbq-plugin/">jQuery BBQ</a> <small>('system', 'jquery.bbq')</small></li>
+                            <li><a href="http://plugins.jquery.com/cookie">jQuery Cookie</a> <small>('system', 'jquery.cookie')</small></li>
+                            <li><a href="http://jqueryui.com">jQuery UI</a> <small>('system', 'ui')</small></li>
+                            <li><a href="http://code.google.com/p/farbtastic/">Farbtastic</a> <small>('system', 'farbtastic')</small></li>
+                            <li><small>And more, see <a href="https://api.drupal.org/api/drupal/modules%21system%21system.module/function/system_library/7">system_library()</a></small></li>
                         </ul>
                     </section>
+                  <section id="jquery-update">
+                    <h2>jQuery Update</h2>
+                    Safely update jQuery with the <a href="https://www.drupal.org/project/jquery_update">jQuery Update</a>
+                    module.
+                  </section>
                 </section>
                 <section>
                     <section id="third-party-libraries">
@@ -306,12 +334,12 @@ awesome_library() {
                         <a href="http://drupal.org/project/libraries">http://drupal.org/project/libraries</a>
                         <ul>
                             <li>Keep libraries out in site/&lt;domain&gt;/libraries.</li>
-                            <li>The same library can be shared by more than one site.</li>
                             <li>Ease the process of upgrading a module that requires an external library.</li>
                             <li>Prevent incompatibilities due to having the same library installed more than once in different versions.</li>
                             <li>Dependency handling.</li>
                             <li>Library version detection.</li>
                             <li>Runtime control of library availability.</li>
+                            <li>Support for dependencies, variants and versions.</li>
                         </ul>
                     </section>
                     <section id="hook-libray-info">
@@ -333,6 +361,7 @@ function awesome_libraries_info() {
     'files' => array('js' => array('awesome.min.js')),
   );
 );</code></pre>
+                      <small>(simple example, see <a href="http://www.drupalcontrib.org/api/drupal/contributions!libraries!libraries.api.php/function/hook_libraries_info/7">hook_library_info()</a>'s documentation for more)</small>
                     </section>
                     <section id="hook-library-glue">
                         <h2>Libraries API and hook_library()</h2>
@@ -390,7 +419,13 @@ function awesome_library() {
                 </section>
             </div>
 
+
+
         </div>
+
+        <a href="https://www.floedesign.ca" class="top-right-logo">
+          <img src="./images/floe.png"/>
+        </a>
 
         <script src="lib/js/head.min.js"></script>
         <script src="js/reveal.min.js"></script>
@@ -405,7 +440,7 @@ function awesome_library() {
                 history: true,
                 center: true,
 
-                theme: Reveal.getQueryHash().theme || 'solarized', // available themes are in /css/theme
+                theme: Reveal.getQueryHash().theme || 'floe', // available themes are in /css/theme
                 transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
 
                 // Optional libraries used to extend on reveal.js

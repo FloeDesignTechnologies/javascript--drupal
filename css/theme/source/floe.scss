@@ -1,0 +1,80 @@
+/**
+ * A simple theme for reveal.js presentations, similar
+ * to the default theme. The accent color is darkblue.
+ *
+ * This theme is Copyright (C) 2012 Owen Versteeg, https://github.com/StereotypicalApps. It is MIT licensed.
+ * reveal.js is Copyright (C) 2011-2012 Hakim El Hattab, http://hakim.se
+ */
+
+
+// Default mixins and settings -----------------
+@import "../template/mixins";
+@import "../template/settings";
+// ---------------------------------------------
+
+
+
+// Include theme-specific fonts
+@import url(https://fonts.googleapis.com/css?family=News+Cycle:400,700);
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic);
+
+
+// Override theme settings (see ../template/settings.scss)
+$mainFont: Avenir, Helvetica, Roboto, Arial, sans-serif;
+$mainColor: #000;
+$headingFont: Avenir, Helvetica, Roboto, Arial, sans-serif;
+$headingColor: #000;
+$headingTextShadow: none;
+$headingTextTransform: none;
+$headingLetterSpacing: 0;
+$backgroundColor: #fff;
+$linkColor: #00aee7;
+$linkColorHover: lighten( $linkColor, 20% );
+$selectionBackgroundColor: rgba(0, 0, 0, 0.99);
+
+@font-face {
+  font-family: "Avenir";
+  font-style: normal;
+  font-weight: normal;
+  src: url("https://floedesign.ca/fonts/AvenirNextLTPro-Regular.otf") format("opentype"), url("../../fonts/AvenirNextLTPro-Regular.woff") format("woff");
+}
+@font-face {
+  font-family: "Avenir";
+  font-style: normal;
+  font-weight: bold;
+  src: url("https://floedesign.ca/fonts/AvenirNextLTPro-Bold.otf") format("opentype"), url("../../fonts/AvenirNextLTPro-Bold.woff") format("woff");
+}
+
+body {
+  border: 1em solid $linkColor;
+  box-sizing: border-box;
+}
+
+.reveal .top-right-logo {
+  width: 5%;
+  position: absolute;
+  right: 16px;
+  top: 16px;
+}
+
+h2::after {
+  border-bottom: 15px solid #00aee7;
+  content: "";
+  display: block;
+  margin-bottom: 0.6em;
+  padding-bottom: 0.2em;
+  width: 300px;
+}
+
+.reveal .slides h2 {
+  text-align: left;
+}
+
+
+.reveal small {
+  vertical-align: middle;
+}
+
+// Theme template ------------------------------
+@import "../template/theme";
+// ---------------------------------------------
