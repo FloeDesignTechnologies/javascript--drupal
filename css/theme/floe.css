@@ -11,13 +11,13 @@
   font-family: "Avenir";
   font-style: normal;
   font-weight: normal;
-  src: url("../../fonts/AvenirNextLTPro-Regular.otf") format("opentype"), url("../../fonts/AvenirNextLTPro-Regular.woff") format("woff"); }
+  src: url("https://floedesign.ca/fonts/AvenirNextLTPro-Regular.otf") format("opentype"), url("https://floedesign.ca/fonts/AvenirNextLTPro-Regular.woff") format("woff"); }
 
 @font-face {
   font-family: "Avenir";
   font-style: normal;
   font-weight: bold;
-  src: url("../../fonts/AvenirNextLTPro-Bold.otf") format("opentype"), url("../../fonts/AvenirNextLTPro-Bold.woff") format("woff"); }
+  src: url("https://floedesign.ca/fonts/AvenirNextLTPro-Bold.otf") format("opentype"), url("https://floedesign.ca/fonts/AvenirNextLTPro-Bold.woff") format("woff"); }
 
 body {
   border: 1em solid #00aee7;
